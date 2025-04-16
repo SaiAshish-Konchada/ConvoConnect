@@ -123,101 +123,110 @@ const HomePageConnectGame = ({ title, subtitle }) => {
   }, [playersToday, connectionsMade, convosStarted]);
 
   return (
-    <div className="relative h-full w-full flex flex-col items-center justify-start bg-base-200 pt-28 pb-12 px-6 overflow-hidden">
-      {/* Full Screen Confetti on Win */}
-      {winner && (
-        <Confetti width={window.innerWidth} height={window.innerHeight} />
-      )}
-
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-primary">🎯 Connect & Win</h2>
-        {!winner && (
-          <p className="text-base-content mt-2">
-            Your turn:{" "}
-            <span className="font-bold capitalize text-red-500">Red</span>
-          </p>
-        )}
-      </div>
-
-      {/* Game Board */}
-      <div className="grid grid-cols-7 gap-2 mb-10">
-        {Array(COLS)
-          .fill(null)
-          .map((_, col) => (
-            <div
-              key={col}
-              className="cursor-pointer group flex flex-col-reverse gap-2"
-              onClick={() => handlePlayerMove(col)}
-            >
-              {Array(ROWS)
-                .fill(null)
-                .map((_, row) => {
-                  const cell = board[row][col];
-                  return (
-                    <div
-                      key={row}
-                      className={`w-12 h-12 rounded-full border border-base-content/10 bg-base-100 
-                  group-hover:scale-105 group-hover:shadow-md flex items-center justify-center transition-all duration-300`}
-                    >
-                      {cell && (
-                        <User
-                          className={`w-6 h-6 ${cell === "red" ? "text-red-500" : "text-blue-500"}`}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
-            </div>
-          ))}
-      </div>
-
-      {/* Fake Stats */}
-      <div className="grid grid-cols-3 gap-4 max-w-xl text-center text-base-content/80 text-sm">
-        <div className="flex flex-col items-center">
-          <Users className="w-5 h-5 mb-1 text-success" />
-          <span className="font-semibold">{playersToday}</span>
-          <span>players today</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <Handshake className="w-5 h-5 mb-1 text-primary" />
-          <span className="font-semibold">{connectionsMade}</span>
-          <span>connections made</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <MessageSquareHeart className="w-5 h-5 mb-1 text-secondary" />
-          <span className="font-semibold">{convosStarted}</span>
-          <span>convos started</span>
-        </div>
-      </div>
-
-      {/* Text Content */}
-      <div className="absolute bottom-4 right-4 max-w-xs text-right z-10 text-sm leading-tight">
-        <h2 className="text-lg font-semibold mb-1">{title}</h2>
-        <p className="text-base-content/60">{subtitle}</p>
-      </div>
-
-      {/* Winner Modal */}
-      {winner && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
-          <div className="bg-base-100 p-8 rounded-lg shadow-xl text-center">
-            <h3 className="text-xl font-bold mb-4 text-success">
-              {winner === "You" ? "🎉 You win!" : "🤖 CPU wins!"}
-            </h3>
-            <p className="text-base-content mb-4">
-              Sign up to challenge real people!
-            </p>
-            <button
-              onClick={() => navigate("/signup")}
-              className="btn btn-primary w-full"
-            >
-              Create Account
-            </button>
+    <div className="w-full h-full flex items-center justify-center overflow-hidden">
+      <div className="scale-[0.9] origin-center w-full">
+        <div className="relative h-full w-full flex flex-col items-center justify-start bg-base-200 pt-28 pb-20 px-6 overflow-hidden">
+          
+          {/* Full Screen Confetti on Win */}
+          {winner && (
+            <Confetti width={window.innerWidth} height={window.innerHeight} />
+          )}
+  
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-primary">🎯 Connect & Win</h2>
+            {!winner && (
+              <p className="text-base-content mt-2">
+                You:{" "}
+                <span className="font-bold capitalize text-red-500 mr-6">Red</span>
+                CPU:{" "}
+                <span className="font-bold capitalize text-blue-500">Blue</span>
+              </p>
+            )}
           </div>
+  
+          {/* Game Board */}
+          <div className="grid grid-cols-7 gap-2 mb-10">
+            {Array(COLS)
+              .fill(null)
+              .map((_, col) => (
+                <div
+                  key={col}
+                  className="cursor-pointer group flex flex-col-reverse gap-2"
+                  onClick={() => handlePlayerMove(col)}
+                >
+                  {Array(ROWS)
+                    .fill(null)
+                    .map((_, row) => {
+                      const cell = board[row][col];
+                      return (
+                        <div
+                          key={row}
+                          className={`w-12 h-12 rounded-full border border-base-content/10 bg-base-100 
+                            group-hover:scale-105 group-hover:shadow-md flex items-center justify-center transition-all duration-300`}
+                        >
+                          {cell && (
+                            <User
+                              className={`w-6 h-6 ${cell === "red" ? "text-red-500" : "text-blue-500"}`}
+                            />
+                          )}
+                        </div>
+                      );
+                    })}
+                </div>
+              ))}
+          </div>
+  
+          {/* Fake Stats */}
+          <div className="grid grid-cols-3 gap-4 max-w-xl text-center text-base-content/80 text-sm mb-8">
+            <div className="flex flex-col items-center">
+              <Users className="w-5 h-5 mb-1 text-success" />
+              <span className="font-semibold">{playersToday}</span>
+              <span>players today</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Handshake className="w-5 h-5 mb-1 text-primary" />
+              <span className="font-semibold">{connectionsMade}</span>
+              <span>connections made</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <MessageSquareHeart className="w-5 h-5 mb-1 text-secondary" />
+              <span className="font-semibold">{convosStarted}</span>
+              <span>convos started</span>
+            </div>
+          </div>
+  
+          {/* Text Content */}
+          <div className="absolute bottom-4 right-4 max-w-xs text-right z-10 text-sm leading-tight">
+            <h2 className="text-lg font-semibold mb-1">{title}</h2>
+            <p className="text-base-content/60">{subtitle}</p>
+          </div>
+  
+          {/* Winner Modal */}
+          {winner && (
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+              <div className="bg-base-100 p-8 rounded-lg shadow-xl text-center">
+                <h3 className="text-xl font-bold mb-4 text-success">
+                  {winner === "You" ? "🎉 You win!" : "🤖 CPU wins!"}
+                </h3>
+                <p className="text-base-content mb-4">
+                  Sign up to challenge real people!
+                </p>
+                <button
+                  onClick={() => navigate("/signup")}
+                  className="btn btn-primary w-full"
+                >
+                  Create Account
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
+  
+  
 };
 
 export default HomePageConnectGame;
