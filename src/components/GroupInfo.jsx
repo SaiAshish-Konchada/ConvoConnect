@@ -1,4 +1,5 @@
 import { X } from "lucide-react"; // Import X icon from lucide-react
+import groupImage from "../assets/group1.png"; // Import image directly
 
 const GroupInfo = ({ group, onClose, onLeaveGroup, onBlockGroup }) => {
   return (
@@ -19,7 +20,7 @@ const GroupInfo = ({ group, onClose, onLeaveGroup, onBlockGroup }) => {
         {/* Group Image */}
         <div className="flex justify-center mb-6">
           <img
-            src={group.groupPic || "src/assets/group1.png"}
+            src={group.groupPic || groupImage} // Use the imported image here
             alt={group.name}
             className="rounded-full w-32 h-32 object-cover border-4 border-gray-700"
           />

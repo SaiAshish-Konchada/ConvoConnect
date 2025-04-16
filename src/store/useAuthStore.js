@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import toast from "react-hot-toast";
+import profilePic from "../assets/profilepic.png"; // ✅ Import the image properly
 
 const MOCK_USER = {
   _id: "12345",
   username: "saiashish",
   fullName: "Sai Ashish",
-  profilePic: "src/assets/profilepic.png",
+  profilePic: profilePic, // ✅ Use imported image
   email: "mock@example.com",
 };
 
@@ -15,7 +16,7 @@ export const useAuthStore = create((set, get) => ({
   isLoggingIn: false,
   isUpdatingProfile: false,
   isCheckingAuth: true,
-  onlineUsers: [], // The list of online user IDs
+  onlineUsers: [],
   socket: null,
 
   checkAuth: async () => {
@@ -63,11 +64,8 @@ export const useAuthStore = create((set, get) => ({
   connectSocket: () => {
     const { authUser } = get();
     if (!authUser) return;
-
-    // Simulate the online users (IDs "1" and "2" are online)
-    const onlineUserIds = ["1", "2"]; // Mock online users
-
-    set({ onlineUsers: onlineUserIds }); // Set online users in the state
+    const onlineUserIds = ["1", "2"];
+    set({ onlineUsers: onlineUserIds });
   },
 
   disconnectSocket: () => {

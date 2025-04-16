@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import EmojiJumble from "./EmojiJumble";
 import ChatBubblePop from "./ChatBubblePop";
 import ChatWordScramble from "./ChatWordScramble";
+import welcome from "../assets/welcome.png"; // Import the image
 
 // Emoji trail for fun cursor effect
 const emojis = ["😂", "💬", "🔥", "✨", "🎉", "😜", "🤯", "😎", "🧠", "🎮"];
@@ -110,8 +111,8 @@ const IdleChatScreen = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <img
-                src="src/assets/welcome.png"
-                alt="Avatar"
+                src={welcome} // Use the imported groupImage
+                alt="Group"
                 className="w-24 h-24 rounded-full mx-auto"
               />
             </motion.div>

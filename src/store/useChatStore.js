@@ -1,11 +1,18 @@
 import { create } from "zustand";
 
+// ✅ Importing images
+import person1 from "../assets/person1.png";
+import person2 from "../assets/person2.png";
+import person3 from "../assets/person3.png";
+import group1 from "../assets/group1.png";
+import group2 from "../assets/group2.png";
+
 export const useChatStore = create((set, get) => ({
   messages: [],
   users: [],
-  groups: [], // All group chats
+  groups: [],
   selectedUser: null,
-  selectedGroup: null, // Selected group
+  selectedGroup: null,
   isUsersLoading: false,
   isMessagesLoading: false,
   messageInterval: null,
@@ -22,19 +29,19 @@ export const useChatStore = create((set, get) => ({
         {
           _id: "1",
           username: "John Doe",
-          profilePic: "src/assets/person1.png",
+          profilePic: person1,
           fullName: "John Doe",
         },
         {
           _id: "2",
           username: "Jane Smith",
-          profilePic: "src/assets/person2.png",
+          profilePic: person2,
           fullName: "Jane Smith",
         },
         {
           _id: "3",
           username: "Mark Lee",
-          profilePic: "src/assets/person3.png",
+          profilePic: person3,
           fullName: "Mark Lee",
         },
       ],
@@ -43,31 +50,29 @@ export const useChatStore = create((set, get) => ({
   },
 
   getGroups: async () => {
-    // Simulating group online/offline statuses for each member
     const mockGroups = [
       {
         _id: "g1",
         name: "Dev Team",
-        groupPic: "src/assets/group1.png",
-        members: ["1", "2", "3"], // Group members
+        groupPic: group1,
+        members: ["1", "2", "3"],
         onlineStatus: {
-          1: true, // John is online
-          2: true, // Jane is online
-          3: false, // Mark is offline
+          1: true,
+          2: true,
+          3: false,
         },
       },
       {
         _id: "g2",
         name: "Friends",
-        groupPic: "src/assets/group2.png",
-        members: ["1", "2"], // Group members
+        groupPic: group2,
+        members: ["1", "2"],
         onlineStatus: {
-          1: true, // John is online
-          2: false, // Jane is offline
+          1: true,
+          2: false,
         },
       },
     ];
-
     set({ groups: mockGroups });
   },
 
@@ -104,11 +109,10 @@ export const useChatStore = create((set, get) => ({
 
     set({ messages: [...messages, messageData] });
 
-    // FAKE GROUP REPLY
     if (selectedGroup) {
       const group = groups.find((g) => g._id === selectedGroup._id);
       if (group) {
-        const currentUserId = "12345"; // your fake current user ID
+        const currentUserId = "12345";
         const otherMembers = group.members.filter((id) => id !== currentUserId);
         const onlineGroupMembers = otherMembers.filter((id) =>
           onlineUsers.includes(id),
@@ -120,12 +124,10 @@ export const useChatStore = create((set, get) => ({
               Math.floor(Math.random() * onlineGroupMembers.length)
             ];
 
-          // Simulate typing
           setUserTypingStatus(randomUser, true);
 
           setTimeout(() => {
             setUserTypingStatus(randomUser, false);
-
             const reply = {
               _id: Date.now().toString(),
               groupId: selectedGroup._id,
@@ -133,13 +135,10 @@ export const useChatStore = create((set, get) => ({
               text: "This is a fake group reply!",
               createdAt: new Date().toISOString(),
             };
-
             set({ messages: [...get().messages, reply] });
           }, 2000);
         }
       }
-
-      // FAKE 1-on-1 REPLY
     } else if (selectedUser && onlineUsers.includes(selectedUser._id)) {
       setTimeout(() => {
         const reply = {
@@ -181,14 +180,13 @@ export const useChatStore = create((set, get) => ({
   },
 
   setSelectedUser: (user) => {
-    set({ selectedUser: user, selectedGroup: null }); // Make sure to nullify selectedGroup
+    set({ selectedUser: user, selectedGroup: null });
   },
 
   setSelectedGroup: (group) => {
-    set({ selectedGroup: group, selectedUser: null }); // Make sure to nullify selectedUser
+    set({ selectedGroup: group, selectedUser: null });
   },
 
-  // New feature to simulate typing status for online users in group chats
   setUserTypingStatus: (userId, isTyping) => {
     const { groups } = get();
     const updatedGroups = groups.map((group) => {

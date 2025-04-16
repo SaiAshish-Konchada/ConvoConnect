@@ -8,6 +8,11 @@ import { formatMessageTime } from "../lib/utils";
 import GroupInfo from "./GroupInfo"; // Import GroupInfo modal
 import { useThemeStore } from "../store/useThemeStore";
 
+// Importing images directly for React to handle the bundling
+import person1 from "../assets/person1.png"; // Imported person1 image
+import person2 from "../assets/person2.png"; // Imported person2 image
+import profilepic from "../assets/profilepic.png"; // Imported profile picture image
+
 const ChatWindow = () => {
   const { theme } = useThemeStore();
 
@@ -34,19 +39,19 @@ const ChatWindow = () => {
   // Helper to get avatar based on message sender and chat type
   const getAvatarSrc = (messageSenderId) => {
     if (messageSenderId === "john-doe-id") {
-      return "src/assets/person1.png"; // John Doe's avatar
+      return person1; // John Doe's avatar
     }
     if (
       selectedUser &&
       (selectedUser._id === "g1" || selectedUser._id === "g2")
     ) {
       return messageSenderId === authUser._id
-        ? authUser.profilePic || "src/assets/profilepic.png"
-        : "src/assets/person1.png";
+        ? authUser.profilePic || profilepic
+        : person1;
     } else {
       return messageSenderId === authUser._id
-        ? authUser.profilePic || "src/assets/profilepic.png"
-        : selectedUser?.profilePic || "src/assets/person2.png";
+        ? authUser.profilePic || profilepic
+        : selectedUser?.profilePic || person2;
     }
   };
 
@@ -84,7 +89,7 @@ const ChatWindow = () => {
       setSelectedUser({
         _id: "67890",
         fullName: "John Doe",
-        profilePic: "src/assets/person2.png",
+        profilePic: person2, // Used imported image
         isGroup: true, // For testing group chat
       });
     }
@@ -281,7 +286,7 @@ const ChatWindow = () => {
             <div className="chat-image avatar">
               <div className="size-10 rounded-full border">
                 <img
-                  src={selectedUser?.profilePic || "src/assets/person2.png"}
+                  src={selectedUser?.profilePic || person2}
                   alt="profile pic"
                 />
               </div>

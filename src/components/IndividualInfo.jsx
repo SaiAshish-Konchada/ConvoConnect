@@ -1,8 +1,10 @@
-import { X } from "lucide-react"; // Import X icon from lucide-react
+import { X } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useThemeStore } from "../store/useThemeStore"; // Assuming this is used to manage the theme
+import { useThemeStore } from "../store/useThemeStore";
 
-// Theme-based emoji for added fun
+// ✅ Import the image instead of using a relative path
+import profilePic from "../assets/profilepic.png"; // Adjust path if needed
+
 const themeEmojiMap = {
   light: "☀️",
   dark: "🌙",
@@ -41,35 +43,15 @@ const IndividualInfo = ({ user, onClose, onBlockUser }) => {
   const [vibeMessage, setVibeMessage] = useState("");
   const [selectedEmoji, setSelectedEmoji] = useState("🎉");
 
-  // Mock data to make it fun (just like the previous component)
   const mockUserData = {
     fullName: "Jane Doe",
-    profilePic: "src/assets/profilepic.png",
+    profilePic: profilePic, // ✅ use imported image here
     description:
       "A quirky individual who loves coding, traveling, and chocolate!",
     phone: "987-654-3210",
     email: "jane.doe@example.com",
   };
 
-  // useEffect(() => {
-  //   // Random vibe message and emoji
-  //   const vibes = [
-  //     { message: "You’re an absolute legend! 🏆", emoji: "🏆" },
-  //     { message: "Coding queen! 👑", emoji: "👑" },
-  //     { message: "You're living the dream! ✨", emoji: "✨" },
-  //   ];
-
-  //   const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
-  //   setVibeMessage(randomVibe.message);
-  //   setSelectedEmoji(randomVibe.emoji);
-  //   setShowZoomEmoji(true);
-
-  //   setTimeout(() => {
-  //     setShowZoomEmoji(false);
-  //   }, 3000);
-  // }, [user]);
-
-  // Define dynamic background and text color based on the theme
   const backgroundClass =
     theme === "light"
       ? "bg-white"
@@ -78,21 +60,17 @@ const IndividualInfo = ({ user, onClose, onBlockUser }) => {
         : theme === "coffee"
           ? "bg-[#3e2723]"
           : theme === "synthwave"
-            ? "bg-[#20143c]" // solid synthwave blue
-            : "bg-gray-800"; // default fallback
+            ? "bg-[#20143c]"
+            : "bg-gray-800";
 
   const textColorClass = theme === "light" ? "text-black" : "text-white";
 
   return (
     <div data-theme={theme}>
-      {" "}
-      {/* Apply the data-theme to manage global theme */}
       <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
-        {/* Apply dynamic background color and text color */}
         <div
           className={`${backgroundClass} ${textColorClass} p-6 rounded-lg shadow-2xl w-full sm:w-[480px] max-h-[90vh] overflow-y-auto transition-transform transform-gpu`}
         >
-          {/* Header with close button */}
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-semibold">{mockUserData.fullName}</h2>
             <button
@@ -100,11 +78,10 @@ const IndividualInfo = ({ user, onClose, onBlockUser }) => {
               className="text-xl text-gray-300 hover:text-gray-500 focus:outline-none transition-colors"
               aria-label="Close User Info"
             >
-              <X /> {/* Close icon */}
+              <X />
             </button>
           </div>
 
-          {/* Profile Picture */}
           <div className="flex justify-center mb-6">
             <img
               src={mockUserData.profilePic}
@@ -113,10 +90,8 @@ const IndividualInfo = ({ user, onClose, onBlockUser }) => {
             />
           </div>
 
-          {/* Description */}
           <p className="text-center mb-6">{mockUserData.description}</p>
 
-          {/* Vibe Message with animation */}
           {showZoomEmoji && (
             <div className="fixed top-20 left-0 w-full flex flex-col items-center z-50 pointer-events-none">
               <div className="emoji-zoom mb-2 text-6xl">{selectedEmoji}</div>
@@ -126,14 +101,12 @@ const IndividualInfo = ({ user, onClose, onBlockUser }) => {
             </div>
           )}
 
-          {/* Contact Info */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold">Contact Info</h3>
             <p className="text-gray-300">Phone: {mockUserData.phone}</p>
             <p className="text-gray-300">Email: {mockUserData.email}</p>
           </div>
 
-          {/* Block User Button */}
           <div className="mt-6 flex justify-center">
             <button
               onClick={onBlockUser}

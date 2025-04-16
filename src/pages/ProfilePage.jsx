@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Camera, Mail, User, Smile, Sparkles, Star } from "lucide-react";
 import clsx from "clsx";
+import profilePic from "../assets/profilepic.png"; // ✅ Fix: Import the image
 
 const vibes = [
   { message: "Feeling fabulous ✨", emoji: "✨", range: 4 },
@@ -39,7 +40,6 @@ const ProfilePage = () => {
     };
   };
 
-  // Set the vibe based on the mood value
   const updateVibe = (moodValue) => {
     const selectedVibe = vibes.find((vibe) => vibe.range === moodValue);
     if (selectedVibe) {
@@ -48,7 +48,6 @@ const ProfilePage = () => {
     }
   };
 
-  // Update vibe when mood changes
   useEffect(() => {
     updateVibe(mood);
   }, [mood]);
@@ -69,7 +68,7 @@ const ProfilePage = () => {
           <div className="flex flex-col items-center gap-4">
             <div className="relative group">
               <img
-                src={"src/assets/profilepic.png"}
+                src={selectedImg || profilePic} // ✅ Uses imported image fallback
                 alt="Profile"
                 className="size-32 rounded-full object-cover border-4 border-primary group-hover:scale-105 transition-transform duration-300 shadow-md"
               />

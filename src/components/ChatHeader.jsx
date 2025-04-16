@@ -6,6 +6,10 @@ import GroupInfo from "../components/GroupInfo"; // Import the GroupInfo compone
 import { Info } from "lucide-react"; // Import the Info icon for triggering the modal
 import IndividualInfo from "./IndividualInfo"; // Import a new IndividualInfo component for individual chat info
 
+// Importing images directly for React to handle the bundling
+import group1 from "../assets/group1.png"; // Imported group image
+import profilepic from "../assets/profilepic.png"; // Imported profile picture image
+
 const ChatHeader = () => {
   const { selectedUser, selectedGroup, setSelectedUser, setSelectedGroup } =
     useChatStore();
@@ -16,7 +20,7 @@ const ChatHeader = () => {
   const group = selectedGroup || {
     name: "Dev Team",
     description: "A group for development, debugging, and design.",
-    groupPic: "src/assets/group1.png",
+    groupPic: group1, // Using the imported image
     members: ["John Doe", "Jane Smith", "Mark Lee"],
     onlineStatus: {
       "John Doe": true,
@@ -55,7 +59,7 @@ const ChatHeader = () => {
       >
         <div className="size-10 rounded-full">
           <img
-            src={selectedUser.profilePic || "src/assets/profilepic.png"}
+            src={selectedUser.profilePic || profilepic} // Using the imported profile picture
             alt={selectedUser.fullName}
             className="object-cover"
           />
