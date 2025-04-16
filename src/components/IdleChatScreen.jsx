@@ -82,15 +82,17 @@ const IdleChatScreen = () => {
 
       {/* Toggle Emoji Trail Button */}
       <motion.button
-        className="absolute top-6 right-6 btn btn-sm btn-outline"
-        onClick={() => setEmojiTrailEnabled((prev) => !prev)}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.4 }}
-        style={{ display: gameStarted ? "none" : "block" }} // Hide if game is started
-      >
-        {emojiTrailEnabled ? "Emoji Trail: On" : "Emoji Trail: Off"}
-      </motion.button>
+  className={`absolute top-6 left-6 btn btn-sm btn-outline hidden md:block ${
+    gameStarted ? "hidden" : ""
+  }`}
+  onClick={() => setEmojiTrailEnabled((prev) => !prev)}
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.4 }}
+>
+  {emojiTrailEnabled ? "Emoji Trail: On" : "Emoji Trail: Off"}
+</motion.button>
+
 
       {/* Game Menu */}
       <AnimatePresence>
@@ -105,17 +107,18 @@ const IdleChatScreen = () => {
           >
             {/* Avatar */}
             <motion.div
-              className="w-24 h-24 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto shadow-lg"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <img
-                src={welcome} // Use the imported groupImage
-                alt="Group"
-                className="w-24 h-24 rounded-full mx-auto"
-              />
-            </motion.div>
+  className="w-24 h-24 flex items-center justify-center mx-auto shadow-lg"
+  initial={{ scale: 0 }}
+  animate={{ scale: 1 }}
+  transition={{ type: "spring", stiffness: 300 }}
+>
+  <img
+    src={welcome}
+    alt="Group"
+    className="w-24 h-24 rounded-full border-4 border-primary"
+  />
+</motion.div>
+
 
             <motion.h2
               className="text-3xl font-extrabold tracking-tight"
@@ -164,13 +167,14 @@ const IdleChatScreen = () => {
       <AnimatePresence>
         {gameStarted && gameSelected && (
           <motion.div
-            key={gameSelected}
-            className="w-full h-full flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+  key={gameSelected}
+  className="w-full h-full flex items-center justify-center pt-16 md:pt-0"
+  initial={{ opacity: 0, scale: 0.95 }}
+  animate={{ opacity: 1, scale: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.5 }}
+>
+
             {gameSelected === "emojiJumble" && <EmojiJumble />}
             {gameSelected === "bubblePop" && <ChatBubblePop />}
             {gameSelected === "wordScramble" && <ChatWordScramble />}

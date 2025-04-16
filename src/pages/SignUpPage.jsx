@@ -92,33 +92,32 @@ const SignUpPage = () => {
         <div className="w-full max-w-md space-y-8">
           {/* Avatar & Message */}
           <div className="flex flex-col items-center gap-2 mb-4 pt-12 sm:pt-0">
-  <motion.img
-    src={getAvatar()}
-    alt="Signup avatar"
-    className="w-24 h-24 rounded-full"
-    initial={{ y: 0 }}
-    animate={{ y: [0, -5, 0] }}
-    transition={{ duration: 1, repeat: Infinity }}
-  />
-  <motion.p
-    key={getAvatarMessage()}
-    className="text-base text-base-content font-semibold text-center"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    {getAvatarMessage()}
-  </motion.p>
-  <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-    <motion.div
-      className="h-full bg-primary"
-      initial={{ width: 0 }}
-      animate={{ width: getProgressWidth() }}
-      transition={{ duration: 0.5 }}
-    />
-  </div>
-</div>
-
+            <motion.img
+              src={getAvatar()}
+              alt="Signup avatar"
+              className="w-24 h-24 rounded-full border-4 border-primary"
+              initial={{ y: 0 }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            />
+            <motion.p
+              key={getAvatarMessage()}
+              className="text-base text-base-content font-semibold text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              {getAvatarMessage()}
+            </motion.p>
+            <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-primary"
+                initial={{ width: 0 }}
+                animate={{ width: getProgressWidth() }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+          </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
