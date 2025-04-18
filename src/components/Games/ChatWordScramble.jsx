@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// List of chat-themed words
+// Constants
 const WORDS = ["LOL", "BRB", "EMOJI", "GIF", "MEME", "CHAT"];
 
-// Utility to scramble a word
+// Utility to scramble letters
 const scramble = (word) =>
-  word
-    .split("")
-    .sort(() => Math.random() - 0.5)
-    .join("");
+  word.split("").sort(() => Math.random() - 0.5).join("");
 
 const ChatWordScramble = () => {
   const [answer, setAnswer] = useState("");
@@ -18,25 +15,9 @@ const ChatWordScramble = () => {
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState(null); // "nice" or "almost"
   const [confetti, setConfetti] = useState([]);
-  const [showShrug, setShowShrug] = useState(false);
   const [hintUsed, setHintUsed] = useState(false);
 
-  // Start a new round
-  const newRound = () => {
-    const word = WORDS[Math.floor(Math.random() * WORDS.length)];
-    setAnswer(word);
-    setScrambled(scramble(word));
-    setInput("");
-    setFeedback(null);
-    setShowShrug(false);
-    setHintUsed(false);
-  };
-
-  useEffect(() => {
-    newRound();
-  }, []);
-
-  // Launch confetti for correct answer
+  // Launch confetti on correct answer
   const launchConfetti = () => {
     const pieces = Array.from({ length: 40 }).map((_, i) => ({
       id: i,
@@ -47,33 +28,51 @@ const ChatWordScramble = () => {
     setTimeout(() => setConfetti([]), 2000);
   };
 
-  // Handle submit
+  // New round
+  const newRound = () => {
+    const word = WORDS[Math.floor(Math.random() * WORDS.length)];
+    setAnswer(word);
+    setScrambled(scramble(word));
+    setInput("");
+    setFeedback(null);
+    setHintUsed(false);
+  };
+
+  // Init first round
+  useEffect(() => {
+    newRound();
+  }, []);
+
+  // Submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.toUpperCase() === answer) {
-      setScore((s) => s + 10);
+      setScore((prev) => prev + 10);
       setFeedback("nice");
       launchConfetti();
       setTimeout(newRound, 2000);
     } else {
       setFeedback("almost");
-      setShowShrug(true);
-      setTimeout(() => setShowShrug(false), 2000);
-      setTimeout(() => setFeedback(null), 2000); // Hide feedback after a short delay
+      setTimeout(() => setFeedback(null), 2000);
     }
     setInput("");
   };
 
-  // Reveal first letter as hint
+  // Hint logic
   const handleHint = () => {
-    if (hintUsed) return;
-    setHintUsed(true);
-    setInput(answer[0]);
+    if (!hintUsed) {
+      setHintUsed(true);
+      setInput(answer[0]);
+    }
   };
 
   return (
-    <div className="relative w-full max-w-md p-6 bg-blue-800 rounded-2xl shadow-md flex flex-col items-center space-y-6">
-      {/* Scoreboard */}
+    <div
+      className="relative w-full max-w-md p-6 bg-blue-800 rounded-2xl shadow-md flex flex-col items-center space-y-6"
+      role="region"
+      aria-label="Chat Word Scramble Game"
+    >
+      {/* Score */}
       <motion.div
         className="text-xl font-semibold text-white"
         animate={{ scale: [1, 1.2, 1] }}
@@ -88,14 +87,16 @@ const ChatWordScramble = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-4xl font-bold text-yellow-300"
+        aria-label="Scrambled word"
       >
         {scrambled}
       </motion.div>
 
-      {/* Input & Controls */}
+      {/* Input & Buttons */}
       <form
         onSubmit={handleSubmit}
         className="w-full flex flex-col items-center space-y-4"
+        aria-label="Word input form"
       >
         <input
           type="text"
@@ -103,7 +104,9 @@ const ChatWordScramble = () => {
           onChange={(e) => setInput(e.target.value)}
           className="input input-bordered w-full max-w-sm text-center text-lg"
           placeholder="Type your guess..."
+          aria-label="Guess the unscrambled word"
         />
+
         <div className="flex space-x-4">
           <motion.button
             type="submit"
@@ -113,6 +116,7 @@ const ChatWordScramble = () => {
           >
             Submit
           </motion.button>
+
           <motion.button
             type="button"
             className="btn btn-secondary"
@@ -120,13 +124,15 @@ const ChatWordScramble = () => {
             disabled={hintUsed}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-disabled={hintUsed}
+            aria-label="Reveal a hint"
           >
             Hint
           </motion.button>
         </div>
       </form>
 
-      {/* Feedback Messages */}
+      {/* Feedback Banner */}
       <AnimatePresence>
         {feedback === "nice" && (
           <motion.div
@@ -134,6 +140,8 @@ const ChatWordScramble = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
+            role="status"
+            aria-live="polite"
           >
             Nice! 🎉
           </motion.div>
@@ -144,13 +152,15 @@ const ChatWordScramble = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
+            role="status"
+            aria-live="polite"
           >
             Almost there! 🤔
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Confetti */}
+      {/* Confetti Animation */}
       <AnimatePresence>
         {confetti.map((piece) => (
           <motion.div
@@ -167,20 +177,6 @@ const ChatWordScramble = () => {
           />
         ))}
       </AnimatePresence>
-
-      {/* Shrug Emoji for Wrong */}
-      {/* <AnimatePresence>
-        {showShrug && (
-          <motion.div
-            className="absolute text-4xl text-white z-20"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-          >
-            🤷
-          </motion.div>
-        )}
-      </AnimatePresence> */}
     </div>
   );
 };

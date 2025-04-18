@@ -1,17 +1,17 @@
 import { useEffect, useState, useRef } from "react";
-import { useChatStore } from "../store/useChatStore";
-import { useAuthStore } from "../store/useAuthStore";
+import { useChatStore } from "../../store/useChatStore";
+import { useAuthStore } from "../../store/useAuthStore";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
-import Placeholder from "./skeletons/MessageStructure";
-import { formatMessageTime } from "../lib/utils";
-import GroupInfo from "./GroupInfo"; // Import GroupInfo modal
-import { useThemeStore } from "../store/useThemeStore";
+import Placeholder from "../skeletons/MessageStructure";
+import { formatMessageTime } from "../../lib/utils";
+import GroupInfo from "../Modals/GroupInfoModal"; // Import GroupInfo modal
+import { useThemeStore } from "../../store/useThemeStore";
 
 // Importing images directly for React to handle the bundling
-import person1 from "../assets/person1.png"; // Imported person1 image
-import person2 from "../assets/person2.png"; // Imported person2 image
-import profilepic from "../assets/profilepic.png"; // Imported profile picture image
+import person1 from "../../assets/person1.png"; // Imported person1 image
+import person2 from "../../assets/person2.png"; // Imported person2 image
+import profilepic from "../../assets/profilepic.png"; // Imported profile picture image
 
 const ChatWindow = () => {
   const { theme } = useThemeStore();

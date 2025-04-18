@@ -1,5 +1,5 @@
 import { X } from "lucide-react"; // Import X icon from lucide-react
-import groupImage from "../assets/group1.png"; // Import image directly
+import groupImage from "../../assets/group1.png"; // Import image directly
 
 const GroupInfo = ({ group, onClose, onLeaveGroup, onBlockGroup }) => {
   return (

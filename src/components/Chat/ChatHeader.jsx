@@ -1,14 +1,14 @@
-import { useAuthStore } from "../store/useAuthStore";
-import { useChatStore } from "../store/useChatStore";
+import { useAuthStore } from "../../store/useAuthStore";
+import { useChatStore } from "../../store/useChatStore";
 import { X } from "lucide-react";
 import { useState } from "react";
-import GroupInfo from "../components/GroupInfo"; // Import the GroupInfo component
+import GroupInfo from "../Modals/GroupInfo"; // Import the GroupInfo component
 import { Info } from "lucide-react"; // Import the Info icon for triggering the modal
-import IndividualInfo from "./IndividualInfo"; // Import a new IndividualInfo component for individual chat info
+import IndividualInfo from "../Modals/IndividualInfo"; // Import a new IndividualInfo component for individual chat info
 
 // Importing images directly for React to handle the bundling
-import group1 from "../assets/group1.png"; // Imported group image
-import profilepic from "../assets/profilepic.png"; // Imported profile picture image
+import group1 from "../../assets/group1.png"; // Imported group image
+import profilepic from "../../assets/profilepic.png"; // Imported profile picture image
 
 const ChatHeader = () => {
   const { selectedUser, selectedGroup, setSelectedUser, setSelectedGroup } =

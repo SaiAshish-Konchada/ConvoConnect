@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { useState } from "react";
-import { useThemeStore } from "../store/useThemeStore";
-import profilePic from "../assets/profilepic.png";
+import { useThemeStore } from "../../store/useThemeStore";
+import profilePic from "../../assets/profilepic.png";
 
 const themeEmojiMap = {
   light: "☀️",
