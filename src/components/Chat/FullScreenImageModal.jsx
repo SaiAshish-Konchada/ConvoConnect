@@ -1,6 +1,6 @@
 import React from "react";
 
-const FullscreenImageModal = ({
+const FullScreenImageModal = ({
   fullscreenImage,
   closeFullScreen,
   openFullScreen,
@@ -24,4 +24,4 @@ const FullscreenImageModal = ({
   );
 };
 
-export default FullscreenImageModal;
+export default FullScreenImageModal;

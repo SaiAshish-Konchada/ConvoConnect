@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
 import ImagePreviewList from "./ImagePreviewList";
-import FullscreenImageModal from "./FullscreenImageModal";
+import FullScreenImageModal from "./FullScreenImageModal";
 import { useAuthStore } from "../../store/useAuthStore"; // adjust the path as needed
 
 const ChatMessages = ({ onSendMessage, selectedUser, onlineUsers }) => {
@@ -110,7 +110,7 @@ const ChatMessages = ({ onSendMessage, selectedUser, onlineUsers }) => {
   return (
     <div className="p-4 w-full">
       {/* Fullscreen Modal */}
-      <FullscreenImageModal
+      <FullScreenImageModal
         fullscreenImage={fullscreenImage}
         closeFullScreen={closeFullScreen}
         imagePreviews={imagePreviews}
