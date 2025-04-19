@@ -2,7 +2,6 @@ import { create } from "zustand";
 import toast from "react-hot-toast";
 import profilePic from "../assets/profilepic.png"; // ✅ Import the image properly
 
-// Mock user data for authentication
 const MOCK_USER = {
   _id: "12345",
   username: "saiashish",
@@ -11,7 +10,6 @@ const MOCK_USER = {
   email: "mock@example.com",
 };
 
-// Zustand store for authentication and user state management
 export const useAuthStore = create((set, get) => ({
   authUser: JSON.parse(localStorage.getItem("authUser")) || null, // Load from localStorage
   isSigningUp: false,
@@ -21,18 +19,21 @@ export const useAuthStore = create((set, get) => ({
   onlineUsers: [],
   socket: null,
 
-  // Check authentication status (simulated)
   checkAuth: async () => {
     try {
-      await new Promise((r) => setTimeout(r, 500)); // Simulate API call delay
-      set({ authUser: null, isCheckingAuth: false });
+      const storedUser = JSON.parse(localStorage.getItem("authUser"));
+      if (storedUser) {
+        set({ authUser: storedUser });
+      } else {
+        set({ authUser: null });
+      }
+      set({ isCheckingAuth: false });
     } catch (error) {
       console.error("Error checking authentication:", error);
       set({ isCheckingAuth: false });
     }
   },
 
-  // Signup logic (mock)
   signup: async (data) => {
     set({ isSigningUp: true });
     try {
@@ -49,7 +50,6 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  // Login logic (mock)
   login: async (data) => {
     set({ isLoggingIn: true });
     try {
@@ -66,7 +66,6 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  // Logout logic (mock)
   logout: async () => {
     try {
       await new Promise((r) => setTimeout(r, 300)); // Simulate network delay
@@ -79,7 +78,6 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  // Update profile (mock)
   updateProfile: async (data) => {
     set({ isUpdatingProfile: true });
     try {
@@ -97,7 +95,6 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  // Socket connection logic (mock)
   connectSocket: () => {
     const { authUser } = get();
     if (!authUser) return;
@@ -106,12 +103,10 @@ export const useAuthStore = create((set, get) => ({
     set({ onlineUsers: onlineUserIds });
   },
 
-  // Disconnect socket logic (mock)
   disconnectSocket: () => {
     set({ onlineUsers: [] });
   },
 
-  // Add user to online users list
   userOnline: (userId) => {
     set((state) => {
       if (!state.onlineUsers.includes(userId)) {
@@ -120,7 +115,6 @@ export const useAuthStore = create((set, get) => ({
     });
   },
 
-  // Remove user from online users list
   userOffline: (userId) => {
     set((state) => ({
       onlineUsers: state.onlineUsers.filter((id) => id !== userId),
