@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import PropTypes from "prop-types";
 // Emoji Confetti Component
 const EmojiConfetti = ({ emoji }) => {
   const [emojis, setEmojis] = useState([]);
@@ -29,6 +29,10 @@ const EmojiConfetti = ({ emoji }) => {
       ))}
     </div>
   );
+};
+
+EmojiConfetti.propTypes = {
+  emoji: PropTypes.string.isRequired, // Ensure emoji is a required string
 };
 
 export default EmojiConfetti;

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import PropTypes from "prop-types";
 const ToggleTrailButton = ({ enabled, onToggle }) => (
   <motion.button
     className="absolute top-6 left-6 btn btn-sm btn-outline hidden md:block"
@@ -12,5 +12,9 @@ const ToggleTrailButton = ({ enabled, onToggle }) => (
     {enabled ? "Emoji Trail: On" : "Emoji Trail: Off"}
   </motion.button>
 );
+ToggleTrailButton.propTypes = {
+  enabled: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
+};
 
 export default ToggleTrailButton;

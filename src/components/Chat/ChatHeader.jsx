@@ -1,9 +1,8 @@
 import { useAuthStore } from "../../store/useAuthStore";
 import { useChatStore } from "../../store/useChatStore";
-import { X } from "lucide-react";
+import { Info, X } from "lucide-react";
 import { useState } from "react";
 import GroupInfo from "../Modals/GroupInfo"; // Import the GroupInfo component
-import { Info } from "lucide-react"; // Import the Info icon for triggering the modal
 import IndividualInfo from "../Modals/IndividualInfo"; // Import a new IndividualInfo component for individual chat info
 
 // Importing images directly for React to handle the bundling
@@ -52,19 +51,20 @@ const ChatHeader = () => {
 
   const renderUserHeader = () => (
     <>
-      <div
+      <button
         className="avatar"
         onClick={handleUserClick}
         style={{ cursor: "pointer" }}
       >
         <div className="size-10 rounded-full">
           <img
-            src={selectedUser.profilePic || profilepic} // Using the imported profile picture
+            src={selectedUser.profilePic || profilepic}
             alt={selectedUser.fullName}
             className="object-cover"
           />
         </div>
-      </div>
+      </button>
+
       <div>
         <h3 className="font-medium">{selectedUser.fullName}</h3>
         <p className="text-sm text-base-content/70">
@@ -82,30 +82,36 @@ const ChatHeader = () => {
 
     return (
       <>
-        <div
+        <button
           className="avatar"
           onClick={handleGroupClick}
           style={{ cursor: "pointer" }}
+          aria-label={`Select group: ${group.name}`} // Adds an accessible label for screen readers
         >
           <div className="size-10 rounded-full">
             <img
               src={
                 group.groupPic ||
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(group.name)}&background=random`
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                  group.name,
+                )}&background=random`
               }
               alt={group.name}
               className="object-cover"
             />
           </div>
-        </div>
+        </button>
+
         <div>
-          <h3
+          <button
             className="font-medium"
             onClick={handleGroupClick}
             style={{ cursor: "pointer" }}
+            aria-label={`Select group: ${group.name}`} // Provides an accessible label for screen readers
           >
             {group.name}
-          </h3>
+          </button>
+
           <p className="text-sm text-base-content/70">
             {onlineCount} online • {totalCount - onlineCount} offline
           </p>

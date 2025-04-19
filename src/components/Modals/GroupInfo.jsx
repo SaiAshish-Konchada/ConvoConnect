@@ -1,6 +1,6 @@
 import { X } from "lucide-react"; // Import X icon from lucide-react
 import groupImage from "../../assets/group1.png"; // Import image directly
-
+import PropTypes from "prop-types";
 const GroupInfo = ({ group, onClose, onLeaveGroup, onBlockGroup }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
@@ -50,17 +50,19 @@ const GroupInfo = ({ group, onClose, onLeaveGroup, onBlockGroup }) => {
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-100">Members</h3>
           <ul className="mt-2 space-y-2">
-            {group.members.map((member, index) => (
-              <li key={index} className="text-sm text-gray-400">
-                {member}{" "}
+            {group.members.map((member) => (
+              <li key={member._id} className="text-sm text-gray-400">
+                {" "}
+                {/* Use unique member identifier */}
+                {member.fullName}{" "}
                 <span
                   className={`text-xs ${
-                    group.onlineStatus[member]
+                    group.onlineStatus[member._id]
                       ? "text-green-400"
                       : "text-red-400"
                   }`}
                 >
-                  {group.onlineStatus[member] ? "Online" : "Offline"}
+                  {group.onlineStatus[member._id] ? "Online" : "Offline"}
                 </span>
               </li>
             ))}
@@ -85,6 +87,30 @@ const GroupInfo = ({ group, onClose, onLeaveGroup, onBlockGroup }) => {
       </div>
     </div>
   );
+};
+
+GroupInfo.propTypes = {
+  group: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    groupPic: PropTypes.string,
+    description: PropTypes.string,
+    admin: PropTypes.shape({
+      phone: PropTypes.string,
+      email: PropTypes.string,
+    }),
+    members: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        fullName: PropTypes.string.isRequired,
+        profilePic: PropTypes.string,
+      }),
+    ),
+    onlineStatus: PropTypes.objectOf(PropTypes.bool), // Online status for each member
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+  onLeaveGroup: PropTypes.func.isRequired,
+  onBlockGroup: PropTypes.func.isRequired,
 };
 
 export default GroupInfo;

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-
+import PropTypes from "prop-types";
 const FeedbackMessage = ({ feedback }) => (
   <AnimatePresence>
     {feedback === "correct" && (
@@ -24,5 +24,12 @@ const FeedbackMessage = ({ feedback }) => (
     )}
   </AnimatePresence>
 );
+
+FeedbackMessage.propTypes = {
+  feedback: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(["error", "success"]).isRequired,
+  }).isRequired,
+};
 
 export default FeedbackMessage;

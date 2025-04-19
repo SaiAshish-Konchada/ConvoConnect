@@ -2,16 +2,7 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { useThemeStore } from "../../store/useThemeStore";
 import profilePic from "../../assets/profilepic.png";
-
-const themeEmojiMap = {
-  light: "☀️",
-  dark: "🌙",
-  coffee: "☕",
-  bumblebee: "🐝",
-  pastel: "🌸",
-  retro: "🎶",
-};
-
+import PropTypes from "prop-types";
 const styles = `
 @keyframes bounce {
   0% { transform: translateY(0); }
@@ -35,11 +26,11 @@ const styles = `
 }
 `;
 
-const IndividualInfo = ({ user, onClose, onBlockUser }) => {
+const IndividualInfo = ({ onClose, onBlockUser }) => {
   const { theme } = useThemeStore();
-  const [showZoomEmoji, setShowZoomEmoji] = useState(false);
-  const [vibeMessage, setVibeMessage] = useState("");
-  const [selectedEmoji, setSelectedEmoji] = useState("🎉");
+  const [showZoomEmoji] = useState(false);
+  const [vibeMessage] = useState("");
+  const [selectedEmoji] = useState("🎉");
 
   const mockUserData = {
     fullName: "Jane Doe",
@@ -50,16 +41,19 @@ const IndividualInfo = ({ user, onClose, onBlockUser }) => {
     email: "jane.doe@example.com",
   };
 
-  const backgroundClass =
-    theme === "light"
-      ? "bg-white"
-      : theme === "dark"
-      ? "bg-[#1a202c]"
-      : theme === "coffee"
-      ? "bg-[#3e2723]"
-      : theme === "synthwave"
-      ? "bg-[#20143c]"
-      : "bg-gray-800";
+  let backgroundClass;
+
+  if (theme === "light") {
+    backgroundClass = "bg-white";
+  } else if (theme === "dark") {
+    backgroundClass = "bg-[#1a202c]";
+  } else if (theme === "coffee") {
+    backgroundClass = "bg-[#3e2723]";
+  } else if (theme === "synthwave") {
+    backgroundClass = "bg-[#20143c]";
+  } else {
+    backgroundClass = "bg-gray-800";
+  }
 
   const textColorClass = theme === "light" ? "text-black" : "text-white";
 
@@ -100,7 +94,9 @@ const IndividualInfo = ({ user, onClose, onBlockUser }) => {
           {/* Zoom Emoji & Message */}
           {showZoomEmoji && (
             <div className="fixed top-20 left-0 w-full flex flex-col items-center z-50 pointer-events-none">
-              <div className="emoji-zoom mb-2 text-5xl sm:text-6xl">{selectedEmoji}</div>
+              <div className="emoji-zoom mb-2 text-5xl sm:text-6xl">
+                {selectedEmoji}
+              </div>
               <div className="p-2 sm:p-3 px-4 sm:px-5 bg-primary text-white rounded-xl shadow-md text-base sm:text-lg font-semibold animate-fadeIn">
                 {vibeMessage}
               </div>
@@ -128,6 +124,23 @@ const IndividualInfo = ({ user, onClose, onBlockUser }) => {
       <style>{styles}</style>
     </div>
   );
+};
+
+IndividualInfo.propTypes = {
+  // `user` should be an object containing the user's details.
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired, // Assuming `id` is a string.
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    onlineStatus: PropTypes.bool.isRequired, // Assuming this is a boolean indicating online status.
+  }).isRequired,
+
+  // `onClose` should be a function triggered to close the modal or component.
+  onClose: PropTypes.func.isRequired,
+
+  // `onBlockUser` should be a function that blocks the user, accepting the user's `id`.
+  onBlockUser: PropTypes.func.isRequired,
 };
 
 export default IndividualInfo;

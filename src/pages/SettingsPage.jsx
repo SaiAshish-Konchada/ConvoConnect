@@ -65,7 +65,11 @@ const SettingsPage = () => {
 
         {/* Emoji Explosion Animation */}
         {emojiAnimation && (
-          <EmojiExplosion x={emojiAnimation.x} y={emojiAnimation.y} emoji={cursorEmoji} />
+          <EmojiExplosion
+            x={emojiAnimation.x}
+            y={emojiAnimation.y}
+            emoji={cursorEmoji}
+          />
         )}
 
         <h3 className="text-lg font-semibold mb-3">Preview</h3>

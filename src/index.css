@@ -5,41 +5,55 @@
 /* src/styles.css */
 
 @keyframes zoom {
-    0% { transform: scale(0.2); opacity: 0; }
-    50% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
   }
-  
-  @keyframes fall {
-    0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
   }
-  
-  .emoji-zoom {
-    animation: zoom 0.6s ease-in-out;
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
-  
-  .emoji-fall {
-    animation: fall linear;
-    position: absolute;
-    font-size: 1.5rem;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
   }
-  
-  .fixed {
-    position: fixed;
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
   }
-  
-  .pointer-events-none {
-    pointer-events: none;
-  }
-  
-  .z-50 {
-    z-index: 50;
-  }
-  
-  .overflow-hidden {
-    overflow: hidden;
-  }
-  
-  /* Add more styles as needed */
-  
+}
+
+.emoji-zoom {
+  animation: zoom 0.6s ease-in-out;
+}
+
+.emoji-fall {
+  animation: fall linear;
+  position: absolute;
+  font-size: 1.5rem;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Add more styles as needed */

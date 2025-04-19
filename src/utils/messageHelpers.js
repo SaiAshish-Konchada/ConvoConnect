@@ -13,7 +13,7 @@ const getDefaultProfilePic = (messageSenderId, authUser) => {
 // Helper function to get avatar source based on sender ID
 export const getAvatarSrc = (messageSenderId, selectedUser, authUser) => {
   if (!selectedUser) {
-    return getDefaultProfilePic(messageSenderId, authUser);  // Fallback when selectedUser is undefined
+    return getDefaultProfilePic(messageSenderId, authUser); // Fallback when selectedUser is undefined
   }
 
   // Fallback avatar for special case (e.g., "john-doe-id")
@@ -22,24 +22,34 @@ export const getAvatarSrc = (messageSenderId, selectedUser, authUser) => {
   }
 
   // If it's a group chat, return the appropriate profile picture
-  if (selectedUser && (selectedUser._id === "g1" || selectedUser._id === "g2")) {
+  if (
+    selectedUser &&
+    (selectedUser._id === "g1" || selectedUser._id === "g2")
+  ) {
     return getDefaultProfilePic(messageSenderId, authUser);
   }
 
   // For a non-group chat, return the sender's profile picture or a default one
-  return selectedUser?.profilePic || getDefaultProfilePic(messageSenderId, authUser);
+  return (
+    selectedUser?.profilePic || getDefaultProfilePic(messageSenderId, authUser)
+  );
 };
 
 // Helper function to get sender's name based on sender ID
 export const getSenderName = (messageSenderId, selectedUser, authUser) => {
   if (!selectedUser) {
-    return messageSenderId === authUser._id ? authUser.fullName : "Unknown User";  // Fallback when selectedUser is undefined
+    return messageSenderId === authUser._id
+      ? authUser.fullName
+      : "Unknown User"; // Fallback when selectedUser is undefined
   }
 
   if (messageSenderId === "john-doe-id") return "John Doe";
 
   // Handling group chats
-  if (selectedUser && (selectedUser._id === "g1" || selectedUser._id === "g2")) {
+  if (
+    selectedUser &&
+    (selectedUser._id === "g1" || selectedUser._id === "g2")
+  ) {
     return messageSenderId === authUser._id ? authUser.fullName : "John Doe";
   }
 

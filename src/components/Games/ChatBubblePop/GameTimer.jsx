@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-
+import PropTypes from "prop-types";
 const GameTimer = ({ gameOver }) => (
   <motion.div
     className="absolute top-0 left-0 h-2 bg-primary"
@@ -12,4 +12,7 @@ const GameTimer = ({ gameOver }) => (
   />
 );
 
+GameTimer.propTypes = {
+  gameOver: PropTypes.bool.isRequired, // A boolean indicating if the game is over
+};
 export default GameTimer;

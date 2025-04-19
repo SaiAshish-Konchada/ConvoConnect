@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
 const AvatarSection = ({ avatar, message, progressWidth }) => (
   <div className="flex flex-col items-center gap-2 mb-4 pt-12 sm:pt-0">
@@ -30,5 +31,11 @@ const AvatarSection = ({ avatar, message, progressWidth }) => (
     </div>
   </div>
 );
+
+AvatarSection.propTypes = {
+  avatar: PropTypes.string.isRequired, // Ensure avatar is a required string (URL)
+  message: PropTypes.string.isRequired, // Ensure message is a required string
+  progressWidth: PropTypes.string.isRequired, // Ensure progressWidth is a required string (CSS width like "50%")
+};
 
 export default AvatarSection;

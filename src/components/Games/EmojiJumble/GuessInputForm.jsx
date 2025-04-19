@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import PropTypes from "prop-types";
 const GuessInputForm = ({ input, onInputChange, onSubmit }) => (
   <form onSubmit={onSubmit} className="w-full flex flex-col space-y-4">
     <label htmlFor="guess" className="sr-only">
@@ -24,5 +24,10 @@ const GuessInputForm = ({ input, onInputChange, onSubmit }) => (
     </motion.button>
   </form>
 );
+GuessInputForm.propTypes = {
+  input: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default GuessInputForm;

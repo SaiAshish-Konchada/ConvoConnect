@@ -1,3 +1,9 @@
+import React from "react";
+
+// Helper function to generate unique ids for the keys
+const generateKey = () =>
+  `skeleton-${Date.now()}-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
+
 const MessageStructure = () => {
   // Create an array of 6 items for skeleton messages
   const skeletonMessages = Array(6).fill(null);
@@ -6,7 +12,7 @@ const MessageStructure = () => {
     <div className="flex-1 overflow-y-auto p-4 space-y-4">
       {skeletonMessages.map((_, idx) => (
         <div
-          key={idx}
+          key={generateKey()} // Unique key for each skeleton message
           className={`chat ${idx % 2 === 0 ? "chat-start" : "chat-end"}`}
         >
           <div className="chat-image avatar">

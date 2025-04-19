@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import PropTypes from "prop-types";
 const ConfettiPiece = ({ x, color }) => (
   <motion.div
     initial={{ x, y: 0, opacity: 1 }}
@@ -13,5 +13,10 @@ const ConfettiPiece = ({ x, color }) => (
     }}
   />
 );
+// PropTypes validation for ConfettiPiece component
+ConfettiPiece.propTypes = {
+  x: PropTypes.number.isRequired, // Horizontal position of the confetti piece
+  color: PropTypes.string.isRequired, // Color of the confetti piece
+};
 
 export default ConfettiPiece;

@@ -1,5 +1,5 @@
-import React from 'react';
-import personPlaceholder from '../assets/person2.png';
+import React from "react";
+import PropTypes from "prop-types";
 
 const TypingIndicator = ({ avatarSrc }) => (
   <div className="chat chat-start">
@@ -15,5 +15,8 @@ const TypingIndicator = ({ avatarSrc }) => (
     </div>
   </div>
 );
+TypingIndicator.propTypes = {
+  avatarSrc: PropTypes.string.isRequired, // avatarSrc is required and should be a string
+};
 
 export default TypingIndicator;

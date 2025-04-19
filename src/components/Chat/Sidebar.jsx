@@ -3,7 +3,7 @@ import { useChatStore } from "../../store/useChatStore";
 import { useAuthStore } from "../../store/useAuthStore";
 import SidebarStructure from "../skeletons/SidebarStructure";
 import { Users } from "lucide-react";
-
+import PropTypes from "prop-types";
 const Sidebar = () => {
   const {
     getUsers,
@@ -77,7 +77,6 @@ const Sidebar = () => {
             />
           ))}
         </Section>
-
         <Section title="Groups" emptyText="No groups available">
           {filteredGroups.map((group) => (
             <ContactItem
@@ -86,13 +85,15 @@ const Sidebar = () => {
               name={group.name}
               avatar={group.groupPic || "/group-avatar.png"}
               isOnline={group.members.some((m) => isOnline(m._id))}
-              subtitle={group.members
-                .map((memberId) => {
-                  const member = users.find((u) => u._id === memberId);
-                  return member ? member.fullName : null;
-                })
-                .filter(Boolean)
-                .join(", ")}
+              subtitle={
+                group.members
+                  .map((memberId) => {
+                    const member = users.find((u) => u._id === memberId);
+                    return member ? member.fullName : null;
+                  })
+                  .filter(Boolean)
+                  .join(", ") || "No members"
+              }
               isSelected={selectedUser?._id === group._id}
               onClick={() =>
                 setSelectedUser({
@@ -119,14 +120,18 @@ const Section = ({ title, emptyText, children }) => (
   <>
     <h3 className="px-4 text-lg font-medium mt-4">{title}</h3>
     {children.length > 0 ? (
-      <ul role="list" className="space-y-1">
-        {children}
-      </ul>
+      <ul className="space-y-1">{children}</ul>
     ) : (
       <div className="text-center text-zinc-500 py-4">{emptyText}</div>
     )}
   </>
 );
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  emptyText: PropTypes.string,
+  children: PropTypes.node,
+};
 
 const ContactItem = ({
   id,
@@ -140,7 +145,6 @@ const ContactItem = ({
   <li>
     <button
       onClick={onClick}
-      role="button"
       aria-label={`Open chat with ${name}`}
       className={`w-full p-3 flex items-center gap-3 hover:bg-base-300 transition-colors ${
         isSelected ? "bg-base-300 ring-1 ring-base-300" : ""
@@ -169,5 +173,15 @@ const ContactItem = ({
     </button>
   </li>
 );
+
+ContactItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
+  isOnline: PropTypes.bool.isRequired,
+  subtitle: PropTypes.string,
+  isSelected: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default Sidebar;

@@ -1,6 +1,6 @@
-import React from 'react';
-import { themeNames } from '../../constants/themes'; // Adjust the import path accordingly
-
+import React from "react";
+import { themeNames } from "../../constants/themes"; // Adjust the import path accordingly
+import PropTypes from "prop-types";
 const ThemeSelector = ({ filteredThemes, handleThemeChange, theme }) => {
   return (
     <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
@@ -30,5 +30,9 @@ const ThemeSelector = ({ filteredThemes, handleThemeChange, theme }) => {
     </div>
   );
 };
-
+ThemeSelector.propTypes = {
+  filteredThemes: PropTypes.arrayOf(PropTypes.string).isRequired, // Array of available themes
+  handleThemeChange: PropTypes.func.isRequired, // Function to handle theme change
+  theme: PropTypes.string.isRequired, // The current selected theme
+};
 export default ThemeSelector;

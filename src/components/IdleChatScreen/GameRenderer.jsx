@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import EmojiJumble from "../Games/EmojiJumble/EmojiJumble";
 import ChatBubblePop from "../Games/ChatBubblePop/ChatBubblePop";
 import ChatWordScramble from "../Games/ChatWordScramble";
-
+import PropTypes from "prop-types";
 const GameRenderer = ({ selectedGame }) => {
   return (
     <motion.section
@@ -20,4 +20,11 @@ const GameRenderer = ({ selectedGame }) => {
   );
 };
 
+GameRenderer.propTypes = {
+  selectedGame: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    // Add any other expected fields if necessary
+  }),
+};
 export default GameRenderer;

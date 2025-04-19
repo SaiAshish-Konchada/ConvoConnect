@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import welcome from "../../assets/welcome.png";
+import PropTypes from "prop-types";
 
 const GameMenu = ({ onStart }) => (
   <motion.section
@@ -64,4 +65,7 @@ const GameMenu = ({ onStart }) => (
   </motion.section>
 );
 
+GameMenu.propTypes = {
+  onStart: PropTypes.func.isRequired,
+};
 export default GameMenu;

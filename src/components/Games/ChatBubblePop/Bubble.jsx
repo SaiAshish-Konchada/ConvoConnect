@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
 const Bubble = ({ id, x, y, dx, dy, points, onClick }) => {
   return (
@@ -22,6 +23,16 @@ const Bubble = ({ id, x, y, dx, dy, points, onClick }) => {
       <span className="text-white font-bold">{points}</span>
     </motion.div>
   );
+};
+
+Bubble.propTypes = {
+  id: PropTypes.string.isRequired, // ID should be a string and is required
+  x: PropTypes.number.isRequired, // X coordinate of the bubble, should be a number
+  y: PropTypes.number.isRequired, // Y coordinate of the bubble, should be a number
+  dx: PropTypes.number.isRequired, // Movement rate in the X direction, should be a number
+  dy: PropTypes.number.isRequired, // Movement rate in the Y direction, should be a number
+  points: PropTypes.number.isRequired, // Points value inside the bubble, should be a number
+  onClick: PropTypes.func.isRequired, // onClick is a function and is required
 };
 
 export default Bubble;

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import PropTypes from "prop-types";
 const IdleEmoji = ({ emoji }) => {
   if (!emoji) return null;
 
@@ -13,6 +13,10 @@ const IdleEmoji = ({ emoji }) => {
       {emoji}
     </motion.div>
   );
+};
+
+IdleEmoji.propTypes = {
+  emoji: PropTypes.string.isRequired,
 };
 
 export default IdleEmoji;

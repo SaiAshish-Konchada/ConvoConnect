@@ -11,7 +11,7 @@ import LoginForm from "../components/Auth/LoginForm";
  * Renders the login layout with animated avatar and the login form.
  */
 const LoginPage = () => {
-  const { theme } = useThemeStore(); // For future dynamic theming
+  useThemeStore(); // For future dynamic theming
   const { login, isLoggingIn } = useAuthStore();
 
   return (

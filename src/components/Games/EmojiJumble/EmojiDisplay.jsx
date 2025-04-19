@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
 const EmojiDisplay = ({ emojis }) => (
   <motion.div
@@ -12,5 +13,8 @@ const EmojiDisplay = ({ emojis }) => (
     {emojis}
   </motion.div>
 );
+EmojiDisplay.propTypes = {
+  emojis: PropTypes.arrayOf(PropTypes.string).isRequired, // Array of emoji strings
+};
 
 export default EmojiDisplay;

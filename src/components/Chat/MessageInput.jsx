@@ -1,6 +1,6 @@
 import React from "react";
 import { Send, Image } from "lucide-react";
-
+import PropTypes from "prop-types";
 const MessageInput = ({
   handleSendMessage,
   text,
@@ -48,4 +48,12 @@ const MessageInput = ({
   );
 };
 
+MessageInput.propTypes = {
+  handleSendMessage: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  setText: PropTypes.func.isRequired,
+  handleImageChange: PropTypes.func.isRequired,
+  imagePreviews: PropTypes.array.isRequired,
+  fileInputRef: PropTypes.object.isRequired,
+};
 export default MessageInput;

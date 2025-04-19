@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-
+import PropTypes from "prop-types";
 const ScoreBoard = ({ score, gameOver, onReset }) => (
   <div className="flex justify-between items-center mb-4">
     <motion.div
@@ -26,5 +26,10 @@ const ScoreBoard = ({ score, gameOver, onReset }) => (
     )}
   </div>
 );
-
+// PropTypes validation for the ScoreBoard component
+ScoreBoard.propTypes = {
+  score: PropTypes.number.isRequired, // The current score in the game
+  gameOver: PropTypes.bool.isRequired, // A boolean indicating if the game is over
+  onReset: PropTypes.func.isRequired, // Function to reset the game
+};
 export default ScoreBoard;

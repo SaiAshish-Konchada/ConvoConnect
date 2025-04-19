@@ -70,7 +70,7 @@ const ProfilePage = () => {
                 htmlFor="avatar-upload"
                 className={clsx(
                   "absolute bottom-0 right-0 bg-primary hover:scale-110 p-2 rounded-full cursor-pointer transition-all duration-200",
-                  { "animate-pulse pointer-events-none": isUpdatingProfile }
+                  { "animate-pulse pointer-events-none": isUpdatingProfile },
                 )}
               >
                 <Camera className="w-5 h-5 text-white" />
@@ -85,18 +85,41 @@ const ProfilePage = () => {
               </label>
             </div>
             <p className="text-sm text-zinc-500">
-              {isUpdatingProfile ? "Uploading..." : "Click the camera to update your pic"}
+              {isUpdatingProfile
+                ? "Uploading..."
+                : "Click the camera to update your pic"}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <InfoField icon="user" label="Full Name" value={authUser?.fullName} />
+            <InfoField
+              icon="user"
+              label="Full Name"
+              value={authUser?.fullName}
+            />
             <InfoField icon="mail" label="Email" value={authUser?.email} />
-            <InfoField icon="smile" label="Username" value={`@${authUser?.fullName?.split(" ")[0].toLowerCase()}`} />
-            <InfoField icon="sparkles" label="Bio" value="Just here to vibe, code, & sip coffee ☕" />
+            <InfoField
+              icon="smile"
+              label="Username"
+              value={`@${authUser?.fullName?.split(" ")[0].toLowerCase()}`}
+            />
+            <InfoField
+              icon="sparkles"
+              label="Bio"
+              value="Just here to vibe, code, & sip coffee ☕"
+            />
           </div>
 
-          <Interests interests={["Music", "Travel", "Coding", "Food", "Movies", "Gaming"]} />
+          <Interests
+            interests={[
+              "Music",
+              "Travel",
+              "Coding",
+              "Food",
+              "Movies",
+              "Gaming",
+            ]}
+          />
 
           <MoodSlider mood={mood} setMood={setMood} />
 
@@ -115,7 +138,12 @@ const ProfilePage = () => {
           </div>
 
           <BadgeShowcase
-            badges={["🌟 Super User", "🧠 Brainiac", "💬 Friendly", "🎯 Consistent"]}
+            badges={[
+              "🌟 Super User",
+              "🧠 Brainiac",
+              "💬 Friendly",
+              "🎯 Consistent",
+            ]}
           />
         </div>
       </div>

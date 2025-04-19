@@ -5,7 +5,9 @@ const useFormValidation = (formData) => {
   const { fullName, email, password } = formData;
 
   const allFieldsValid = useMemo(() => {
-    return fullName.trim() && /\S+@\S+\.\S+/.test(email) && password.length >= 6;
+    return (
+      fullName.trim() && /\S+@\S+\.\S+/.test(email) && password.length >= 6
+    );
   }, [fullName, email, password]);
 
   const validateForm = (formData) => {

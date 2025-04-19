@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import EmojiTrail from "./EmojiTrail";
 import GameMenu from "./GameMenu";
 import GameRenderer from "./GameRenderer";
-import IdleEmoji from "./IdleEmoji";
 import ToggleTrailButton from "./ToggleTrailButton";
 
 const emojis = ["😂", "💬", "🔥", "✨", "🎉", "😜", "🤯", "😎", "🧠", "🎮"];
@@ -12,7 +11,7 @@ const IdleChatScreen = () => {
   const [gameSelected, setGameSelected] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
   const [emojiTrail, setEmojiTrail] = useState([]);
-  const [idleEmoji, setIdleEmoji] = useState(null);
+  const [setIdleEmoji] = useState(null);
   const [emojiTrailEnabled, setEmojiTrailEnabled] = useState(true);
 
   const handleMouseMove = (e) => {
@@ -44,10 +43,11 @@ const IdleChatScreen = () => {
   return (
     <main
       className="relative w-full h-full flex-1 flex flex-col items-center justify-center p-8 md:p-16 bg-base-100/50 overflow-hidden"
-      onMouseMove={emojiTrailEnabled && !gameStarted ? handleMouseMove : undefined}
+      onMouseMove={
+        emojiTrailEnabled && !gameStarted ? handleMouseMove : undefined
+      }
     >
       {emojiTrailEnabled && !gameStarted && <EmojiTrail trail={emojiTrail} />}
-      {!gameStarted && !gameSelected && <IdleEmoji emoji={idleEmoji} />}
       {!gameStarted && (
         <ToggleTrailButton
           enabled={emojiTrailEnabled}

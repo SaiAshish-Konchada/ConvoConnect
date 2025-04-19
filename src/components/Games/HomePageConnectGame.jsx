@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Users, MessageSquareHeart, Handshake } from "lucide-react";
 import Confetti from "react-confetti"; // Import the confetti package
-
+import PropTypes from "prop-types";
 const ROWS = 6;
 const COLS = 7;
 
@@ -126,57 +126,64 @@ const HomePageConnectGame = ({ title, subtitle }) => {
     <div className="w-full h-full flex items-center justify-center overflow-hidden">
       <div className="scale-[0.9] origin-center w-full">
         <div className="relative h-full w-full flex flex-col items-center justify-start bg-base-200 pt-28 pb-20 px-6 overflow-hidden">
-          
           {/* Full Screen Confetti on Win */}
           {winner && (
             <Confetti width={window.innerWidth} height={window.innerHeight} />
           )}
-  
+
           {/* Header */}
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-primary">🎯 Connect & Win</h2>
+            <h2 className="text-3xl font-bold text-primary">
+              🎯 Connect & Win
+            </h2>
             {!winner && (
               <p className="text-base-content mt-2">
                 You:{" "}
-                <span className="font-bold capitalize text-red-500 mr-6">Red</span>
+                <span className="font-bold capitalize text-red-500 mr-6">
+                  Red
+                </span>
                 CPU:{" "}
                 <span className="font-bold capitalize text-blue-500">Blue</span>
               </p>
             )}
           </div>
-  
+
           {/* Game Board */}
           <div className="grid grid-cols-7 gap-2 mb-10">
-            {Array(COLS)
-              .fill(null)
-              .map((_, col) => (
-                <div
-                  key={col}
-                  className="cursor-pointer group flex flex-col-reverse gap-2"
-                  onClick={() => handlePlayerMove(col)}
+            {board[0].map((_, colIdx) => {
+              const columnKey = `col-${colIdx}`;
+              return (
+                <button
+                  key={columnKey}
+                  type="button"
+                  onClick={() => handlePlayerMove(colIdx)}
+                  className="cursor-pointer group flex flex-col-reverse gap-2 bg-transparent border-none p-0 m-0 focus:outline-none"
+                  aria-label={`Move to column ${colIdx}`}
                 >
-                  {Array(ROWS)
-                    .fill(null)
-                    .map((_, row) => {
-                      const cell = board[row][col];
-                      return (
-                        <div
-                          key={row}
-                          className={`w-12 h-12 rounded-full border border-base-content/10 bg-base-100 
-                            group-hover:scale-105 group-hover:shadow-md flex items-center justify-center transition-all duration-300`}
-                        >
-                          {cell && (
-                            <User
-                              className={`w-6 h-6 ${cell === "red" ? "text-red-500" : "text-blue-500"}`}
-                            />
-                          )}
-                        </div>
-                      );
-                    })}
-                </div>
-              ))}
+                  {board.map((rowData, rowIdx) => {
+                    const cell = board[rowIdx][colIdx];
+                    const cellKey = `cell-${rowIdx}-${colIdx}`;
+                    return (
+                      <div
+                        key={cellKey}
+                        className="w-12 h-12 rounded-full border border-base-content/10 bg-base-100 
+                group-hover:scale-105 group-hover:shadow-md flex items-center justify-center transition-all duration-300"
+                      >
+                        {cell && (
+                          <User
+                            className={`w-6 h-6 ${
+                              cell === "red" ? "text-red-500" : "text-blue-500"
+                            }`}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </button>
+              );
+            })}
           </div>
-  
+
           {/* Fake Stats */}
           <div className="grid grid-cols-3 gap-4 max-w-xl text-center text-base-content/80 text-sm mb-8">
             <div className="flex flex-col items-center">
@@ -195,13 +202,13 @@ const HomePageConnectGame = ({ title, subtitle }) => {
               <span>convos started</span>
             </div>
           </div>
-  
+
           {/* Text Content */}
           <div className="absolute bottom-4 right-4 max-w-xs text-right z-10 text-sm leading-tight">
             <h2 className="text-lg font-semibold mb-1">{title}</h2>
             <p className="text-base-content/60">{subtitle}</p>
           </div>
-  
+
           {/* Winner Modal */}
           {winner && (
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
@@ -225,8 +232,9 @@ const HomePageConnectGame = ({ title, subtitle }) => {
       </div>
     </div>
   );
-  
-  
 };
-
+HomePageConnectGame.propTypes = {
+  title: PropTypes.string.isRequired, // title is required and should be a string
+  subtitle: PropTypes.string.isRequired, // subtitle is required and should be a string
+};
 export default HomePageConnectGame;

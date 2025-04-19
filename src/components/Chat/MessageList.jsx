@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import MessageBubble from './MessageBubble';
-import TypingIndicator from './TypingIndicator';
-import ImageModal from '../Modals/ImageModal';
-
+import React, { useEffect, useRef } from "react";
+import MessageBubble from "./MessageBubble";
+import TypingIndicator from "./TypingIndicator";
+import ImageModal from "../Modals/ImageModal";
+import PropTypes from "prop-types";
 const MessageList = ({
   messages,
   authUser,
@@ -11,14 +11,20 @@ const MessageList = ({
   avatars,
   getSenderName,
 }) => {
-  const [modal, setModal] = React.useState({ isOpen: false, src: null, index: 0, list: [] });
+  const [modal, setModal] = React.useState({
+    isOpen: false,
+    src: null,
+    index: 0,
+    list: [],
+  });
   const endRef = useRef(null);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const openModal = (src, idx, list) => setModal({ isOpen: true, src, index: idx, list });
+  const openModal = (src, idx, list) =>
+    setModal({ isOpen: true, src, index: idx, list });
   const closeModal = () => setModal({ ...modal, isOpen: false, index: 0 });
   const nextImage = () => {
     const nextIdx = (modal.index + 1) % modal.list.length;
@@ -60,4 +66,12 @@ const MessageList = ({
   );
 };
 
+MessageList.propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  authUser: PropTypes.object.isRequired,
+  selectedUser: PropTypes.object.isRequired,
+  isTyping: PropTypes.bool.isRequired,
+  avatars: PropTypes.object.isRequired,
+  getSenderName: PropTypes.func.isRequired,
+};
 export default MessageList;

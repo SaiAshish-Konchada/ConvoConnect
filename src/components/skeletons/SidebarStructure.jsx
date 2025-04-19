@@ -4,6 +4,10 @@ const SidebarStructure = () => {
   // Create 8 skeleton items
   const skeletonContacts = Array(8).fill(null);
 
+  // Helper function to generate unique keys
+  const generateKey = () =>
+    `skeleton-${Date.now()}-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
+
   return (
     <aside
       className="h-full w-20 lg:w-72 border-r border-base-300 
@@ -19,8 +23,11 @@ const SidebarStructure = () => {
 
       {/* Skeleton Contacts */}
       <div className="overflow-y-auto w-full py-3">
-        {skeletonContacts.map((_, idx) => (
-          <div key={idx} className="w-full p-3 flex items-center gap-3">
+        {skeletonContacts.map(() => (
+          <div
+            key={generateKey()}
+            className="w-full p-3 flex items-center gap-3"
+          >
             {/* Avatar skeleton */}
             <div className="relative mx-auto lg:mx-0">
               <div className="skeleton size-12 rounded-full" />

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import PropTypes from "prop-types";
 const GameOverOverlay = ({ score, gameOver, onReset }) => (
   <AnimatePresence>
     {gameOver && (
@@ -33,5 +33,12 @@ const GameOverOverlay = ({ score, gameOver, onReset }) => (
     )}
   </AnimatePresence>
 );
+
+// Define PropTypes for the GameOverOverlay component
+GameOverOverlay.propTypes = {
+  score: PropTypes.number.isRequired, // The final score, should be a number
+  gameOver: PropTypes.bool.isRequired, // Boolean indicating if the game is over
+  onReset: PropTypes.func.isRequired, // Function to reset the game, should be a function
+};
 
 export default GameOverOverlay;

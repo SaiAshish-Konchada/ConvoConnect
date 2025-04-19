@@ -33,7 +33,7 @@ const ChatWindow = () => {
   const [mockMessages, setMockMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [fullscreenImage, setFullscreenImage] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [setCurrentImageIndex] = useState(0);
   const [isGroupInfoOpen, setIsGroupInfoOpen] = useState(false); // State to manage group info modal
 
   // Helper to get avatar based on message sender and chat type
@@ -111,10 +111,9 @@ const ChatWindow = () => {
     const handleKeyDown = (event) => {
       if (!fullscreenImage) return;
 
-      const currentMessage = mockMessages.find(
-        (msg) => msg.images && msg.images.includes(fullscreenImage),
+      const currentMessage = mockMessages.find((msg) =>
+        msg?.images?.includes(fullscreenImage),
       );
-      const currentMessageIndex = mockMessages.indexOf(currentMessage);
       const imageIndex = currentMessage?.images?.indexOf(fullscreenImage);
 
       if (event.key === "ArrowRight" && currentMessage?.images?.length) {
@@ -184,9 +183,6 @@ const ChatWindow = () => {
   };
 
   // Handle opening and closing Group Info modal
-  const openGroupInfo = () => {
-    setIsGroupInfoOpen(true);
-  };
 
   const closeGroupInfo = () => {
     setIsGroupInfoOpen(false);
@@ -225,16 +221,24 @@ const ChatWindow = () => {
       )}
 
       {fullscreenImage && (
-        <div
+        <button
           className="fixed inset-0 z-50 bg-black bg-opacity-75 flex justify-center items-center"
           onClick={closeFullScreen}
+          style={{ cursor: "pointer" }}
+          aria-label="Close fullscreen image" // Describes the action for screen readers
+          tabIndex={0} // Makes the button focusable
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              closeFullScreen(); // Activate on Enter or Space
+            }
+          }}
         >
           <img
             src={fullscreenImage}
             alt="Fullscreen"
             className="max-w-full max-h-full object-contain"
           />
-        </div>
+        </button>
       )}
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -260,14 +264,21 @@ const ChatWindow = () => {
 
             {/* Message bubble */}
             <div className="chat-bubble flex flex-col">
-              {message.images?.map((image, idx) => (
-                <div key={idx} className="mb-2">
-                  <img
-                    src={image}
-                    alt={`attachment-${idx}`}
+              {message.images?.map((image) => (
+                <div key={image} className="mb-2">
+                  <button
+                    type="button"
                     className="sm:max-w-[200px] rounded-md cursor-pointer"
-                    onClick={() => openFullScreen(image, idx)}
-                  />
+                    onClick={() => openFullScreen(image)}
+                    aria-label="View attachment"
+                    style={{ background: "none", border: "none" }}
+                  >
+                    <img
+                      src={image}
+                      alt="attachment"
+                      className="max-w-full object-cover"
+                    />
+                  </button>
                 </div>
               ))}
               {message.text && <p>{message.text}</p>}

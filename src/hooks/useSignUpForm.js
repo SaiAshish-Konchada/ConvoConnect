@@ -2,8 +2,6 @@ const SignUpPage = () => {
   const {
     formData,
     setFormData,
-    showPassword,
-    setShowPassword,
     allFieldsValid,
     getAvatar,
     getAvatarMessage,
@@ -48,7 +46,7 @@ const SignUpPage = () => {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="form-control">
-              <label className="label">
+              <label htmlFor="fullName" className="label">
                 <span className="label-text font-medium">Full Name</span>
               </label>
               <div className="relative">
@@ -56,6 +54,7 @@ const SignUpPage = () => {
                   <User className="size-5 text-base-content/40" />
                 </div>
                 <input
+                  id="fullName" // Adding id to input
                   type="text"
                   className={getInputClassName("fullName", formData.fullName)}
                   placeholder="John Doe"

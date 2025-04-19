@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
 const ScoreDisplay = ({ score }) => (
   <motion.div
@@ -9,5 +10,9 @@ const ScoreDisplay = ({ score }) => (
     Score: {score}
   </motion.div>
 );
+
+ScoreDisplay.propTypes = {
+  score: PropTypes.number.isRequired,
+};
 
 export default ScoreDisplay;

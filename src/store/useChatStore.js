@@ -89,8 +89,18 @@ export const useChatStore = create((set, get) => ({
     try {
       set({
         messages: [
-          { _id: "1", senderId: userOrGroupId, text: "Hello!", createdAt: new Date().toISOString() },
-          { _id: "2", senderId: "12345", text: "Hi, group or user!", createdAt: new Date().toISOString() },
+          {
+            _id: "1",
+            senderId: userOrGroupId,
+            text: "Hello!",
+            createdAt: new Date().toISOString(),
+          },
+          {
+            _id: "2",
+            senderId: "12345",
+            text: "Hi, group or user!",
+            createdAt: new Date().toISOString(),
+          },
         ],
         isMessagesLoading: false,
       });
@@ -102,7 +112,8 @@ export const useChatStore = create((set, get) => ({
 
   // Send a message and simulate a reply
   sendMessage: async (messageData) => {
-    const { messages, selectedGroup, selectedUser, onlineUsers, groups } = get();
+    const { messages, selectedGroup, selectedUser, onlineUsers, groups } =
+      get();
     set({ messages: [...messages, messageData] });
 
     if (selectedGroup) {
@@ -121,7 +132,8 @@ export const useChatStore = create((set, get) => ({
     const onlineMembers = otherMembers.filter((id) => onlineUsers.includes(id));
 
     if (onlineMembers.length > 0) {
-      const randomUser = onlineMembers[Math.floor(Math.random() * onlineMembers.length)];
+      const randomUser =
+        onlineMembers[Math.floor(Math.random() * onlineMembers.length)];
       simulateTypingStatus(randomUser, group);
     }
   },

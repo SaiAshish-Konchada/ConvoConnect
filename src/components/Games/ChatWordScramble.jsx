@@ -6,8 +6,12 @@ const WORDS = ["LOL", "BRB", "EMOJI", "GIF", "MEME", "CHAT"];
 
 // Utility to scramble letters
 const scramble = (word) =>
-  word.split("").sort(() => Math.random() - 0.5).join("");
+  word
+    .split("")
+    .sort(() => Math.random() - 0.5)
+    .join("");
 
+// Chat Word Scramble Component
 const ChatWordScramble = () => {
   const [answer, setAnswer] = useState("");
   const [scrambled, setScrambled] = useState("");
@@ -67,9 +71,8 @@ const ChatWordScramble = () => {
   };
 
   return (
-    <div
+    <section
       className="relative w-full max-w-md p-6 bg-blue-800 rounded-2xl shadow-md flex flex-col items-center space-y-6"
-      role="region"
       aria-label="Chat Word Scramble Game"
     >
       {/* Score */}
@@ -140,10 +143,8 @@ const ChatWordScramble = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            role="status"
-            aria-live="polite"
           >
-            Nice! 🎉
+            <output className="text-lg">Nice! 🎉</output>
           </motion.div>
         )}
         {feedback === "almost" && (
@@ -152,10 +153,8 @@ const ChatWordScramble = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            role="status"
-            aria-live="polite"
           >
-            Almost there! 🤔
+            <output className="text-lg">Almost there! 🤔</output>
           </motion.div>
         )}
       </AnimatePresence>
@@ -177,7 +176,7 @@ const ChatWordScramble = () => {
           />
         ))}
       </AnimatePresence>
-    </div>
+    </section>
   );
 };
 

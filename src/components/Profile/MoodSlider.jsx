@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const MoodSlider = ({ mood, setMood }) => (
   <div className="mt-6">
@@ -20,5 +21,10 @@ const MoodSlider = ({ mood, setMood }) => (
     </div>
   </div>
 );
+
+MoodSlider.propTypes = {
+  mood: PropTypes.number.isRequired, // mood is a required number between 1 and 10
+  setMood: PropTypes.func.isRequired, // setMood is a required function to update the mood
+};
 
 export default MoodSlider;

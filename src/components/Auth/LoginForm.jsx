@@ -18,7 +18,7 @@ import AvatarSuccess from "../../assets/avatar-success.png";
 /**
  * Validation utilities (can be moved to a hook or util file)
  */
-const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
 const validatePassword = (password) => password.length >= 6;
 
 const LoginForm = ({ onSubmit, isLoading }) => {
@@ -31,7 +31,7 @@ const LoginForm = ({ onSubmit, isLoading }) => {
 
   const allFieldsValid = useMemo(
     () => validateEmail(formData.email) && validatePassword(formData.password),
-    [formData]
+    [formData],
   );
 
   const progressValue = useMemo(() => {
@@ -75,9 +75,6 @@ const LoginForm = ({ onSubmit, isLoading }) => {
       />
     );
   };
-
-  const handleChange = (field) => (e) =>
-    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -143,10 +140,9 @@ const LoginForm = ({ onSubmit, isLoading }) => {
           />
           {getFieldIcon("email", formData.email)}
         </div>
-
         {/* Password */}
         <div className="form-control">
-          <label className="label">
+          <label className="label" htmlFor="password">
             <span className="label-text font-medium">Password</span>
           </label>
           <div className="relative">
@@ -154,6 +150,7 @@ const LoginForm = ({ onSubmit, isLoading }) => {
               <Lock className="h-5 w-5 text-base-content/40" />
             </div>
             <input
+              id="password" // Add an ID here
               type={showPassword ? "text" : "password"}
               className={getInputBorderClass("password", formData.password)}
               placeholder="••••••••"
