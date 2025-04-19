@@ -14,6 +14,7 @@ import AvatarOpenEyes from "../../assets/avatar-open.png";
 import AvatarClosedEyes from "../../assets/avatar-closed.png";
 import AvatarCheeky from "../../assets/avatar-cheeky.png";
 import AvatarSuccess from "../../assets/avatar-success.png";
+import { Link } from "react-router-dom"; 
 
 /**
  * Validation utilities (can be moved to a hook or util file)
@@ -31,7 +32,7 @@ const LoginForm = ({ onSubmit, isLoading }) => {
 
   const allFieldsValid = useMemo(
     () => validateEmail(formData.email) && validatePassword(formData.password),
-    [formData],
+    [formData]
   );
 
   const progressValue = useMemo(() => {
@@ -198,9 +199,9 @@ const LoginForm = ({ onSubmit, isLoading }) => {
       <div className="text-center">
         <p className="text-base-content/60">
           Ready to join the club?{" "}
-          <a href="/signup" className="link link-primary">
+          <Link to="/signup" className="link link-primary">
             Create account
-          </a>
+          </Link>
         </p>
       </div>
     </div>
